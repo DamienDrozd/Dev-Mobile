@@ -1,17 +1,10 @@
 // ignore_for_file: avoid_print
 
-import 'dart:io';
-
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projetclass/dashbord.dart';
-import 'package:projetclass/functions/firestoreHelper.dart';
-import 'package:projetclass/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tpfinal/functions/firebaseHelper.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+void main() {
   runApp(const MyApp());
 }
 
@@ -22,11 +15,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'TP - Flutter Project',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'My First Application'),
+      home: const MyHomePage(title: 'TP Flutter - Final'),
     );
   }
 }
@@ -41,60 +34,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  double maPosition = 0.0;
   late String mail;
   late String password;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        centerTitle: true,
-      ),
-      body: Center(
-          child: Container(
-        padding: const EdgeInsets.all(20),
-        child: bodyPage(),
-      )),
-    );
-  }
-
-  popUp() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          if (Platform.isIOS) {
-            return CupertinoAlertDialog(
-              title: const Text("Connection failed !"),
-              actions: [
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text("OK"))
-              ],
-            );
-          } else {
-            return AlertDialog(
-              title: const Text("Connection failed !"),
-              actions: [
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text("OK"))
-              ],
-            );
-          }
-        });
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body:
+            bodyPage() // This trailing comma makes auto-formatting nicer for build methods.
+        );
   }
 
   Widget bodyPage() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        //Afficher notre logo
         Container(
           width: 150,
           height: 150,
@@ -102,9 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
               shape: BoxShape.circle,
               image: DecorationImage(
                   image: AssetImage(
-                    "assets/Tomb-Raider-definitive-ed-012.jpg",
+                    "../assets/img/logo/logo.png",
                   ),
                   fit: BoxFit.fill)),
+        ),
+        const SizedBox(
+          height: 15,
         ),
 
         //Taper une adresse mail
@@ -121,6 +80,9 @@ class _MyHomePageState extends State<MyHomePage> {
               hintStyle: const TextStyle(color: Colors.red),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
+        ),
+        const SizedBox(
+          height: 15,
         ),
 
         //Taper un mot de passe
@@ -139,6 +101,9 @@ class _MyHomePageState extends State<MyHomePage> {
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
         ),
+        const SizedBox(
+          height: 15,
+        ),
 
         //Taper un bouton connexion
         ElevatedButton(
@@ -147,26 +112,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20))),
             onPressed: () {
-              print("J'ai appuyé");
-              firestoreHelper().login(mail, password).then((value) {
-                print("Successfull login");
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const dashboard();
-                }));
+              firebaseHelper().loginFirebase(mail, password).then((value) {
+                print("Connexion réussi");
+                // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                //   return dashboard();
+                // }));
               }).catchError((onError) {
-                print("Connection failed");
-                popUp();
+                print("Connexion échoué");
+                // popUp();
               });
             },
             child: const Text("Connexion")),
+        const SizedBox(
+          height: 15,
+        ),
 
         //Cliquer un lien inscription
         InkWell(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (BuildContext context) {
-              return const register();
-            }));
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (BuildContext context) {
+            //   // return registerFirebase();
+            // }));
           },
           child: const Text(
             "Inscription",

@@ -1,6 +1,6 @@
-# projetclass
+# tpfinal
 
-A new Flutter project.
+Final project of the course on flutter language
 
 ## Getting Started
 
