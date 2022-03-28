@@ -5,15 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:projetclass/functions/firestoreHelper.dart';
 import 'package:projetclass/model/utilisateur.dart';
 
+// ignore: camel_case_types
 class drawer extends StatefulWidget {
+  const drawer({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return drawerState();
   }
 }
 
+// ignore: camel_case_types
 class drawerState extends State<drawer> {
   @override
+  // ignore: override_on_non_overriding_member
   late utilisateur myProfil;
   Uint8List? byteFile;
   String? nameFile;
@@ -47,7 +52,7 @@ class drawerState extends State<drawer> {
                   //annuler
                   Navigator.pop(context);
                 },
-                child: Text("Annuler"),
+                child: const Text("Annuler"),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -65,13 +70,14 @@ class drawerState extends State<drawer> {
                     });
                   });
                 },
-                child: Text("Valider"),
+                child: const Text("Valider"),
               ),
             ],
           );
         });
   }
 
+  @override
   Widget build(BuildContext context) {
     firestoreHelper().getId().then((String id) {
       setState(() {
@@ -84,7 +90,7 @@ class drawerState extends State<drawer> {
     });
 
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       color: Colors.white,
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width / 2,
@@ -107,6 +113,7 @@ class drawerState extends State<drawer> {
                 )),
           ),
           onTap: () {
+            // ignore: avoid_print
             print("récuperer image");
             getImg();
           },

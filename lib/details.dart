@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:projetclass/model/utilisateur.dart';
 
+// ignore: camel_case_types, must_be_immutable
 class details extends StatefulWidget {
   utilisateur user;
-  details({required utilisateur this.user});
+  // ignore: type_init_formals
+  details({Key? key, required utilisateur this.user}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return detailsState();
   }
 }
 
+// ignore: camel_case_types
 class detailsState extends State<details> {
   @override
   Widget build(BuildContext context) {

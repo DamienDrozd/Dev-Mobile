@@ -5,7 +5,10 @@ import 'package:projetclass/functions/firestoreHelper.dart';
 import 'package:projetclass/model/utilisateur.dart';
 import 'package:projetclass/myWidget/drawer.dart';
 
+// ignore: camel_case_types
 class dashboard extends StatefulWidget {
+  const dashboard({Key? key}) : super(key: key);
+
   @override
   // ignore: no_logic_in_create_state
   State<StatefulWidget> createState() {
@@ -13,11 +16,12 @@ class dashboard extends StatefulWidget {
   }
 }
 
+// ignore: camel_case_types
 class dashboardState extends State<dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(),
+      drawer: const drawer(),
       appBar: AppBar(),
       body: bodyPage(),
     );
@@ -49,7 +53,7 @@ class dashboardState extends State<dashboard> {
                     title: Text("${user.nom} ${user.prenom}"),
                     trailing: IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.edit),
+                      icon: const Icon(Icons.edit),
                     ),
                   ),
                 );

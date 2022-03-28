@@ -1,5 +1,5 @@
+// ignore_for_file: file_names
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,6 +9,7 @@ import 'package:projetclass/model/utilisateur.dart';
 class firestoreHelper {
   //Attributs
   final auth = FirebaseAuth.instance;
+  // ignore: non_constant_identifier_names
   final fire_user = FirebaseFirestore.instance.collection("Utilisateur");
   final fireStorage = FirebaseStorage.instance;
 
@@ -33,6 +34,7 @@ class firestoreHelper {
   //Login
   Future login(String mail, String password) async {
     auth.signInWithEmailAndPassword(email: mail, password: password);
+    // ignore: unused_local_variable
     UserCredential result =
         await auth.signInWithEmailAndPassword(email: mail, password: password);
   }
@@ -58,7 +60,7 @@ class firestoreHelper {
   }
 
   Future<String> addImg(String nameImg, Uint8List data) async {
-    String? urlPath;
+    late String urlPath;
     TaskSnapshot snapshotTask =
         await fireStorage.ref("image/$nameImg").putData(data);
     urlPath = await snapshotTask.ref.getDownloadURL();

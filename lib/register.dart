@@ -94,6 +94,7 @@ class registerState extends State<register> {
         ),
         ElevatedButton(
             onPressed: () {
+              // ignore: avoid_print
               print("Je suis inscris");
               firestoreHelper().inscription(nom, prenom, mail, password);
             },
