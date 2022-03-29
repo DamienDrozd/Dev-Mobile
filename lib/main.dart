@@ -51,21 +51,24 @@ class _MyHomePageState extends State<MyHomePage> {
     return Column(
       //mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
+        const SizedBox(
+          height: 15,
+        ),
         Container(
-          width: 150,
-          height: 150,
+          width: 100,
+          height: 100,
           decoration: const BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
                   image: AssetImage(
-                    "../assets/img/logo/logo.png",
+                    "assets/img/logo/logo.png",
                   ),
                   fit: BoxFit.fill)),
         ),
         const SizedBox(
           height: 15,
         ),
-
+        const Text("E-mail"),
         //Taper une adresse mail
         TextField(
           onChanged: (value) {
@@ -84,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
         const SizedBox(
           height: 15,
         ),
-
+        const Text("Mot de passe :"),
         //Taper un mot de passe
         TextField(
           onChanged: (value) {
