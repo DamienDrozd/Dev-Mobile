@@ -1,9 +1,13 @@
 // ignore_for_file: avoid_print
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tpfinal/functions/firebaseHelper.dart';
+import 'package:tpfinal/register.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -68,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 15,
         ),
         const Text("E-mail"),
-        //Taper une adresse mail
+        //-------------------mail------------------------
         TextField(
           onChanged: (value) {
             setState(() {
@@ -79,7 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
               filled: true,
               fillColor: Colors.white,
               hintText: "Taper une adresse mail",
-              hintStyle: const TextStyle(color: Colors.red),
+              hintStyle:
+                  const TextStyle(color: Color.fromARGB(255, 98, 23, 189)),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
         ),
@@ -87,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 15,
         ),
         const Text("Mot de passe :"),
-        //Taper un mot de passe
+        //-------------------password------------------------
         TextField(
           onChanged: (value) {
             setState(() {
@@ -99,7 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
               filled: true,
               fillColor: Colors.white,
               hintText: "Taper un mot de passe",
-              hintStyle: const TextStyle(color: Colors.red),
+              hintStyle:
+                  const TextStyle(color: Color.fromARGB(255, 98, 23, 189)),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
         ),
@@ -107,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 15,
         ),
 
-        //Taper un bouton connexion
+        //-------------------Login--------------------------
         ElevatedButton(
             style: ElevatedButton.styleFrom(
                 primary: Colors.green,
@@ -129,13 +135,13 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 15,
         ),
 
-        //Cliquer un lien inscription
+        //-------------link Register--------------------
         InkWell(
           onTap: () {
-            // Navigator.push(context,
-            //     MaterialPageRoute(builder: (BuildContext context) {
-            //   // return registerFirebase();
-            // }));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (BuildContext context) {
+              return const register();
+            }));
           },
           child: const Text(
             "Inscription",
