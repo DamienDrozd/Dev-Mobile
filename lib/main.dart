@@ -1,9 +1,12 @@
 // ignore_for_file: avoid_print
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tpfinal/functions/firebaseHelper.dart';
 import 'package:tpfinal/register.dart';
+import 'package:tpfinal/messenger.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -121,12 +124,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     borderRadius: BorderRadius.circular(20))),
             onPressed: () {
               firebaseHelper().loginFirebase(mail, password).then((value) {
-                print("Connexion réussi");
-                // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                //   return dashboard();
-                // }));
+                log("Connexion réussi");
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return messenger();
+                }));
               }).catchError((onError) {
-                print("Connexion échoué");
+                log("Connexion échoué");
                 // popUp();
               });
             },
