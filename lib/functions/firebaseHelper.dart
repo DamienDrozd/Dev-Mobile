@@ -41,4 +41,21 @@ class firebaseHelper {
   addUser(String uid, Map<String, dynamic> map) {
     fireUser.doc(uid).set(map);
   }
+
+  //update an user profil
+  updateUser(String uid, Map<String, dynamic> map) {
+    fireUser.doc(uid).update(map);
+  }
+
+  //get the user ID
+  Future<String> getIDt() async {
+    String uid = auth.currentUser!.uid;
+    return uid;
+  }
+
+  //get the user
+  Future<UsersFirebase> getUser(String uid) async {
+    DocumentSnapshot snapshot = await fireUser.doc(uid).get();
+    return UsersFirebase(snapshot);
+  }
 }

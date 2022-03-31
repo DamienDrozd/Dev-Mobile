@@ -127,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
               firebaseHelper().loginFirebase(mail, password).then((value) {
                 log("Connexion réussi");
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return messenger();
+                  return const messenger();
                 }));
               }).catchError((onError) {
                 log("Connexion échoué");
