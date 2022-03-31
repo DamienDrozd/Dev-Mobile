@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tpfinal/contact.dart';
 import 'package:tpfinal/chat.dart';
 import 'package:tpfinal/widget/profil.dart';
+import 'package:tpfinal/model/usersfirebase.dart';
 
 import 'contact.dart';
 
@@ -23,8 +24,10 @@ class messengerState extends State<messenger> {
         appBar: AppBar(
           title: const Text("Messagerie"),
         ),
-        body:
-            bodyPage() // This trailing comma makes auto-formatting nicer for build methods.
+        body: Container(
+          padding: const EdgeInsets.all(20),
+          child: bodyPage(),
+        ) // This trailing comma makes auto-formatting nicer for build methods.
         );
   }
 
@@ -39,6 +42,18 @@ class messengerState extends State<messenger> {
         },
         child: const Text(
           "contact",
+          style: TextStyle(color: Colors.blue),
+        ),
+      ),
+      InkWell(
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (BuildContext context) {
+            return profil();
+          }));
+        },
+        child: const Text(
+          "Profil",
           style: TextStyle(color: Colors.blue),
         ),
       ),

@@ -1,4 +1,6 @@
 // ignore: file_names
+import 'dart:typed_data';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -48,7 +50,7 @@ class firebaseHelper {
   }
 
   //get the user ID
-  Future<String> getIDt() async {
+  Future<String> getID() async {
     String uid = auth.currentUser!.uid;
     return uid;
   }
