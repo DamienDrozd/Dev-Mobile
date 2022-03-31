@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tpfinal/contact.dart';
+import 'package:tpfinal/chat.dart';
+import 'package:tpfinal/widget/profil.dart';
+
+import 'contact.dart';
 
 // ignore: camel_case_types
 class messenger extends StatefulWidget {
@@ -24,6 +29,19 @@ class messengerState extends State<messenger> {
   }
 
   Widget bodyPage() {
-    return const Text("coucou");
+    return Column(children: [
+      InkWell(
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (BuildContext context) {
+            return const contact();
+          }));
+        },
+        child: const Text(
+          "contact",
+          style: TextStyle(color: Colors.blue),
+        ),
+      ),
+    ]);
   }
 }
