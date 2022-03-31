@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget bodyPage() {
     return Column(
-      //mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         const SizedBox(
           height: 15,
@@ -119,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
         //-------------------Login--------------------------
         ElevatedButton(
             style: ElevatedButton.styleFrom(
-                primary: Colors.green,
+                primary: const Color.fromARGB(255, 98, 23, 189),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20))),
             onPressed: () {

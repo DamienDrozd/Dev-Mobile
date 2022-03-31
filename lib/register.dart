@@ -109,6 +109,11 @@ class registerState extends State<register> {
 
         //------------button-----------------
         ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                textStyle: const TextStyle(fontSize: 22),
+                primary: const Color.fromARGB(255, 98, 23, 189),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20))),
             onPressed: () {
               log("Inscription réussi.");
               firebaseHelper()
