@@ -59,9 +59,10 @@ class registerState extends State<register> {
 
         //------------password-----------------
         TextField(
+          obscureText: true,
           onChanged: (value) {
             setState(() {
-              mail = value;
+              password = value;
             });
           },
           decoration: InputDecoration(
@@ -78,7 +79,7 @@ class registerState extends State<register> {
         TextField(
           onChanged: (value) {
             setState(() {
-              mail = value;
+              lastname = value;
             });
           },
           decoration: InputDecoration(
@@ -94,7 +95,7 @@ class registerState extends State<register> {
         TextField(
           onChanged: (value) {
             setState(() {
-              mail = value;
+              firstname = value;
             });
           },
           decoration: InputDecoration(

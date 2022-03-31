@@ -1,7 +1,8 @@
 // ignore_for_file: avoid_print
 import 'dart:developer';
-
+import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tpfinal/functions/firebaseHelper.dart';
@@ -48,9 +49,46 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body:
-            bodyPage() // This trailing comma makes auto-formatting nicer for build methods.
+        body: Container(
+          padding: const EdgeInsets.all(20),
+          child: bodyPage(),
+        )
+        // This trailing comma makes auto-formatting nicer for build methods.
         );
+  }
+
+  //show popUp when connection failed
+  popUp() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          if (Platform.isIOS) {
+            return CupertinoAlertDialog(
+              title: const Text(
+                  "La connexion a échoué ! Recommencez sans erreur ou inscrivez-vous."),
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("OK"))
+              ],
+            );
+          } else {
+            return AlertDialog(
+              title: const Text(
+                  "La connexion a échoué ! Recommencez sans erreur ou inscrivez-vous."),
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("OK"))
+              ],
+            );
+          }
+        });
   }
 
   Widget bodyPage() {
@@ -58,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         Container(
           width: 100,
@@ -72,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   fit: BoxFit.fill)),
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         const Text("E-mail"),
         //-------------------mail------------------------
@@ -92,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         const Text("Mot de passe :"),
         //-------------------password------------------------
@@ -113,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
 
         //-------------------Login--------------------------
@@ -127,16 +165,16 @@ class _MyHomePageState extends State<MyHomePage> {
               firebaseHelper().loginFirebase(mail, password).then((value) {
                 log("Connexion réussi");
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return messenger();
+                  return const messenger();
                 }));
               }).catchError((onError) {
                 log("Connexion échoué");
-                // popUp();
+                popUp();
               });
             },
             child: const Text("Connexion")),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
 
         //-------------link Register--------------------
