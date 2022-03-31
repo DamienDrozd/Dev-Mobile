@@ -14,6 +14,16 @@ class messenger extends StatefulWidget {
 class messengerState extends State<messenger> {
   @override
   Widget build(BuildContext context) {
-    return const Text("Timothy");
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Messagerie"),
+        ),
+        body:
+            bodyPage() // This trailing comma makes auto-formatting nicer for build methods.
+        );
+  }
+
+  Widget bodyPage() {
+    return const Text("coucou");
   }
 }

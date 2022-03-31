@@ -110,7 +110,7 @@ class registerState extends State<register> {
         //------------button-----------------
         ElevatedButton(
             style: ElevatedButton.styleFrom(
-                textStyle: const TextStyle(fontSize: 22),
+                textStyle: const TextStyle(fontSize: 20),
                 primary: const Color.fromARGB(255, 98, 23, 189),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20))),

@@ -120,6 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ElevatedButton(
             style: ElevatedButton.styleFrom(
                 primary: const Color.fromARGB(255, 98, 23, 189),
+                textStyle: const TextStyle(fontSize: 20),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20))),
             onPressed: () {
