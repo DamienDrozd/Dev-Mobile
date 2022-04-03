@@ -28,8 +28,8 @@ class contactState extends State<contact> {
           title: const Text("Contact"),
         ),
         body:
-        bodyPage() // This trailing comma makes auto-formatting nicer for build methods.
-    );
+            bodyPage() // This trailing comma makes auto-formatting nicer for build methods.
+        );
   }
 
   /*
@@ -41,42 +41,30 @@ class contactState extends State<contact> {
 
   Widget bodyPage() {
     return Container(
-      child:  Column(
-        children:
-        [
-          TextField(
-            onChanged: (value) {
-              setState(() {
-                Search = value;
-
-              });
-            },
-          ),
-          Text("test"),
-
-
-          StreamBuilder<QuerySnapshot>(
-            stream: firebaseHelper().fireUser.where(field).snapshots(),
-            builder: (context,snapshot) {
-              List documents = snapshot.data!.docs;
-              print(documents.length);
-              return ListView.builder(
+        child: Column(children: [
+      TextField(
+        onChanged: (value) {
+          setState(() {
+            Search = value;
+          });
+        },
+      ),
+      Text("test"),
+      StreamBuilder<QuerySnapshot>(
+          stream: firebaseHelper().fireUser.where().snapshots(),
+          builder: (context, snapshot) {
+            List documents = snapshot.data!.docs;
+            print(documents.length);
+            return ListView.builder(
                 shrinkWrap: true,
-                  itemCount: documents.length,
-                  itemBuilder: (context, index) {
-                    UsersFirebase user = UsersFirebase(documents[index]);
+                itemCount: documents.length,
+                itemBuilder: (context, index) {
+                  UsersFirebase user = UsersFirebase(documents[index]);
 
-
-                    return Text("${user.firstname}  ${user.lastname}");
-                  }
-              );
-            }
-          ),
-
-
-        ]
-      )
-    );
+                  return Text("${user.firstname}  ${user.lastname}");
+                });
+          }),
+    ]));
   }
 }
 
