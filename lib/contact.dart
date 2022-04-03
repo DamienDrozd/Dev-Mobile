@@ -48,30 +48,92 @@ class contactState extends State<contact> {
             onChanged: (value) {
               setState(() {
                 Search = value;
+                StreamBuilder<QuerySnapshot>(
+                    //stream: firebaseHelper().fireUser.where(Search == user.firstname).snapshots(),
+                    stream: firebaseHelper().fireUser.snapshots(),
+                    builder: (context,snapshot) {
+                      List documents = snapshot.data!.docs;
+                      print(documents.length);
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: documents.length,
+                          itemBuilder: (context, index) {
+                            UsersFirebase user = UsersFirebase(documents[index]);
+
+
+                          return Center(
+                              child: Card(
+                                  child: Column( mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      const ListTile(
+                                        title: Text("${user.firstname}  ${user.lastname}")
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          TextButton(
+                                            child: const Text('ADD FRIEND'),
+                                            onPressed: () {/* ... */},
+                                          ),
+                                          const SizedBox(width: 8),
+
+                                        ],
+                                      ),
+                                    ]
+                                )
+                              )
+                          );
+                          }
+                      );
+                    }
+                );
 
               });
             },
           ),
-          Text("test"),
 
-
+          //---------demandes d'ami reçues-------------------
+          Text("demandes d'ami reçues"),
           StreamBuilder<QuerySnapshot>(
-            stream: firebaseHelper().fireUser.where(field).snapshots(),
-            builder: (context,snapshot) {
-              List documents = snapshot.data!.docs;
-              print(documents.length);
-              return ListView.builder(
-                shrinkWrap: true,
-                  itemCount: documents.length,
-                  itemBuilder: (context, index) {
-                    UsersFirebase user = UsersFirebase(documents[index]);
+              //stream: firebaseHelper().fireUser.where(Search == user.firstname).snapshots(),
+              stream: firebaseHelper().fireUser.snapshots(),
+              builder: (context,snapshot) {
+                  List documents = snapshot.data!.docs;
+                  print(documents.length);
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: documents.length,
+                      itemBuilder: (context, index) {
+                          UsersFirebase user = UsersFirebase(documents[index]);
+                          return Center(
+                              child: Card(
+                                  child: Column( mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                      const ListTile(
+                                          title: Text("${user.firstname}  ${user.lastname}")
+                                      ),
+                                      Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: <Widget>[
+                                              TextButton(
+                                                  child: const Text('ACCEPTER LA DEMANDE'),
+                                                  onPressed: () {/* ... */},
+                                              ),
+                                              const SizedBox(width: 8),
 
-
-                    return Text("${user.firstname}  ${user.lastname}");
-                  }
-              );
-            }
+                                          ],
+                                          ),
+                                      ]
+                                  )
+                              )
+                          );
+                      }
+                  );
+              }
           ),
+
+
+
 
 
         ]
