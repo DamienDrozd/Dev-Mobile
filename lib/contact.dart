@@ -22,6 +22,7 @@ class contactState extends State<contact> {
   late List UserFirstName;
   late List UserLastName;
 
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -64,8 +65,8 @@ class contactState extends State<contact> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                               const ListTile(
-                                  title: Text(
-                                      "${user.firstname}  ${user.lastname}")),
+                                  //title: Text("${user.firstname}  ${user.lastname}")),
+                                  title: Text("test")),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
@@ -102,14 +103,15 @@ class contactState extends State<contact> {
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                         const ListTile(
-                            title: Text("${user.firstname}  ${user.lastname}")),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            TextButton(
-                              child: const Text('ACCEPTER LA DEMANDE'),
-                              onPressed: () {/* ... */},
-                            ),
+                            //title: Text("${user.firstname}  ${user.lastname}")),
+                            title: Text("test")),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                TextButton(
+                                  child: const Text('ACCEPTER LA DEMANDE'),
+                                  onPressed: () {/* ... */},
+                                ),
                             const SizedBox(width: 8),
                           ],
                         ),
