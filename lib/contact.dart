@@ -18,9 +18,9 @@ class contact extends StatefulWidget {
 
 class contactState extends State<contact> {
   @override
-  late String Search;
   late List UserFirstName;
   late List UserLastName;
+  String Search = "";
 
 
   Widget build(BuildContext context) {
@@ -44,80 +44,74 @@ class contactState extends State<contact> {
     return Container(
         child: Column(children: [
       TextField(
-        onChanged: (value) {
+        onChanged: (String value) async {
           setState(() {
-            Search = value;
-            StreamBuilder<QuerySnapshot>(
-                //stream: firebaseHelper().fireUser.where(Search == user.firstname).snapshots(),
-                stream: firebaseHelper().fireUser.snapshots(),
-                builder: (context, snapshot) {
-                  List documents = snapshot.data!.docs;
-                  print(documents.length);
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: documents.length,
-                      itemBuilder: (context, index) {
-                        UsersFirebase user = UsersFirebase(documents[index]);
+              Search = value;
+              print("test");
+              Text(Search);
 
-                        return Center(
-                            child: Card(
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                              const ListTile(
-                                  //title: Text("${user.firstname}  ${user.lastname}")),
-                                  title: Text("test")),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  TextButton(
-                                    child: const Text('ADD FRIEND'),
-                                    onPressed: () {/* ... */},
-                                  ),
-                                  const SizedBox(width: 8),
-                                ],
-                              ),
-                            ])));
-                      });
-                });
+
+
+
+
+
           });
+
         },
       ),
 
-      //---------demandes d'ami reçues-------------------
-      Text("demandes d'ami reçues"),
-      StreamBuilder<QuerySnapshot>(
-          //stream: firebaseHelper().fireUser.where(Search == user.firstname).snapshots(),
-          stream: firebaseHelper().fireUser.snapshots(),
-          builder: (context, snapshot) {
+    StreamBuilder<QuerySnapshot>(
+    //stream: firebaseHelper().fireUser.where( "NOM",isEqualTo: Search).snapshots(),
+        stream: firebaseHelper().fireUser.snapshots(),
+        builder: (context, snapshot) {
+            print("test");
             List documents = snapshot.data!.docs;
-            print(documents.length);
             return ListView.builder(
-                shrinkWrap: true,
                 itemCount: documents.length,
                 itemBuilder: (context, index) {
-                  UsersFirebase user = UsersFirebase(documents[index]);
-                  return Center(
-                      child: Card(
-                          child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                        const ListTile(
-                            //title: Text("${user.firstname}  ${user.lastname}")),
-                            title: Text("test")),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: <Widget>[
-                                TextButton(
-                                  child: const Text('ACCEPTER LA DEMANDE'),
-                                  onPressed: () {/* ... */},
-                                ),
-                            const SizedBox(width: 8),
-                          ],
-                        ),
-                      ])));
-                });
-          }),
+                    var result = documents[index];
+                    print ("${result.firstname}  ${result.lastname}");
+                    return ListTile(
+                        title: Text("${result.firstname}  ${result.lastname}"),
+                    );
+                },
+            );
+        }
+    ),
+
+
+
+      //---------demandes d'ami reçues-------------------
+      const Text("demandes d'ami reçues"),
+        /*
+        ListView.builder(
+          //List friendsadd = firebaseHelper.getFriendsRequests();
+          shrinkWrap: true,
+          itemCount: friendsAdd.length,
+          itemBuilder: (context, index) {
+            UsersFirebase user = UsersFirebase(friendsAdd[index]);
+            return Center(
+                child: Card(
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                   ListTile(
+                      title: Text("${user.firstname}  ${user.lastname}")),
+                      //title: Text("test")),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                          TextButton(
+                            child: const Text('ACCEPTER LA DEMANDE'),
+                            onPressed: () {firebaseHelper.addFriend(user.uid)},
+                          ),
+                      const SizedBox(width: 8),
+                    ],
+                  ),
+                ])));
+          });*/
+
+
     ]));
   }
 }

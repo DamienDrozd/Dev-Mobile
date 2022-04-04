@@ -61,26 +61,46 @@ class firebaseHelper {
     return UsersFirebase(snapshot);
   }
 
-  //function add Friend request
-   sendFriendRequest(String userId, String friendId){
-
+/*
+  //function send Friend request
+  sendFriendRequest(String friendId) {
+    Future<String> userId = getID();
+    List frienrequest = getFriendRequests(userId);
   }
+  */
 
   //function getFriendsRequests
-  //Future<List> getFriendRequests(String userId){
-   // UsersFirebase user = getUser(userId);
+  /*
+  Future<List> getFriendRequests(String userId){
+    Future<UsersFirebase> user = getUser(userId);
 
-  //  return ;
-  //}
+    return user.friendRequest;
+  }
 
-  addFriend(String userId, String friendId){
+   */
+
+  /*
+
+  addFriend(String userId, String friendId) {
+    Future<String> userId = getID();
+    List frienlist1 = getFriends(userId);
+    friendRequest1.add(friendId);
+    List friendlist2 = getFriends(friendId);
+    frienrequest2.add(userId);
+    //update user && friend
+
 
   }
 
-  //function getFriends
-  //Future<List> getFriendRequests(String userId){
-  // UsersFirebase user = getUser(userId);
+  */
 
-  //  return ;
-  //}
+/*
+  Future<List> getFriend(String userId){
+   UsersFirebase user = getUser(userId);
+
+
+    return user.contacts;
+  }
+
+  */
 }

@@ -8,6 +8,8 @@ class UsersFirebase {
   late String lastname;
   late String mail;
   String? avatar;
+  List? contacts;
+  List? friendRequest;
 
   //Constructor
   UsersFirebase.vide();
@@ -19,5 +21,7 @@ class UsersFirebase {
     firstname = map["PRENOM"];
     mail = map["MAIL"];
     avatar = map["AVATAR"];
+    contacts = map["contacts"];
+    friendRequest = map["contacts"];
   }
 }
