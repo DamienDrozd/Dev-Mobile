@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:tpfinal/functions/firebaseHelper.dart';
 import 'package:tpfinal/model/usersfirebase.dart';
 
 class profil extends StatefulWidget {
@@ -46,6 +47,17 @@ class myprofil extends State<profil> {
   }
 
   Widget bodyPage() {
+    firebaseHelper().getID().then((String id) {
+      setState(() {
+        String userID = id;
+        firebaseHelper().getUser(userID).then((UsersFirebase myuser) {
+          setState(() {
+            myProfil = myuser;
+          });
+        });
+      });
+    });
+
     return Container(
         padding: const EdgeInsets.all(20),
         alignment: Alignment.center,
@@ -67,7 +79,7 @@ class myprofil extends State<profil> {
             const SizedBox(
               height: 20,
             ),
-            const Text("")
+            Text("${myProfil.lastname} ${myProfil.firstname}")
           ],
         ));
   }
