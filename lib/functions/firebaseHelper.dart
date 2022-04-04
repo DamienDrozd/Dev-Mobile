@@ -60,4 +60,27 @@ class firebaseHelper {
     DocumentSnapshot snapshot = await fireUser.doc(uid).get();
     return UsersFirebase(snapshot);
   }
+
+  //function add Friend request
+   sendFriendRequest(String userId, String friendId){
+
+  }
+
+  //function getFriendsRequests
+  //Future<List> getFriendRequests(String userId){
+   // UsersFirebase user = getUser(userId);
+
+  //  return ;
+  //}
+
+  addFriend(String userId, String friendId){
+
+  }
+
+  //function getFriends
+  //Future<List> getFriendRequests(String userId){
+  // UsersFirebase user = getUser(userId);
+
+  //  return ;
+  //}
 }
