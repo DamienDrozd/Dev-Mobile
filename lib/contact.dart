@@ -28,8 +28,8 @@ class contactState extends State<contact> {
           title: const Text("Contact"),
         ),
         body:
-        bodyPage() // This trailing comma makes auto-formatting nicer for build methods.
-    );
+            bodyPage() // This trailing comma makes auto-formatting nicer for build methods.
+        );
   }
 
   /*
@@ -41,42 +41,82 @@ class contactState extends State<contact> {
 
   Widget bodyPage() {
     return Container(
-      child:  Column(
-        children:
-        [
-          TextField(
-            onChanged: (value) {
-              setState(() {
-                Search = value;
+        child: Column(children: [
+      TextField(
+        onChanged: (value) {
+          setState(() {
+            Search = value;
+            StreamBuilder<QuerySnapshot>(
+                //stream: firebaseHelper().fireUser.where(Search == user.firstname).snapshots(),
+                stream: firebaseHelper().fireUser.snapshots(),
+                builder: (context, snapshot) {
+                  List documents = snapshot.data!.docs;
+                  print(documents.length);
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: documents.length,
+                      itemBuilder: (context, index) {
+                        UsersFirebase user = UsersFirebase(documents[index]);
 
-              });
-            },
-          ),
-          Text("test"),
+                        return Center(
+                            child: Card(
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                              const ListTile(
+                                  title: Text(
+                                      "${user.firstname}  ${user.lastname}")),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  TextButton(
+                                    child: const Text('ADD FRIEND'),
+                                    onPressed: () {/* ... */},
+                                  ),
+                                  const SizedBox(width: 8),
+                                ],
+                              ),
+                            ])));
+                      });
+                });
+          });
+        },
+      ),
 
-
-          StreamBuilder<QuerySnapshot>(
-            stream: firebaseHelper().fireUser.where(field).snapshots(),
-            builder: (context,snapshot) {
-              List documents = snapshot.data!.docs;
-              print(documents.length);
-              return ListView.builder(
+      //---------demandes d'ami reçues-------------------
+      Text("demandes d'ami reçues"),
+      StreamBuilder<QuerySnapshot>(
+          //stream: firebaseHelper().fireUser.where(Search == user.firstname).snapshots(),
+          stream: firebaseHelper().fireUser.snapshots(),
+          builder: (context, snapshot) {
+            List documents = snapshot.data!.docs;
+            print(documents.length);
+            return ListView.builder(
                 shrinkWrap: true,
-                  itemCount: documents.length,
-                  itemBuilder: (context, index) {
-                    UsersFirebase user = UsersFirebase(documents[index]);
-
-
-                    return Text("${user.firstname}  ${user.lastname}");
-                  }
-              );
-            }
-          ),
-
-
-        ]
-      )
-    );
+                itemCount: documents.length,
+                itemBuilder: (context, index) {
+                  UsersFirebase user = UsersFirebase(documents[index]);
+                  return Center(
+                      child: Card(
+                          child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                        const ListTile(
+                            title: Text("${user.firstname}  ${user.lastname}")),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            TextButton(
+                              child: const Text('ACCEPTER LA DEMANDE'),
+                              onPressed: () {/* ... */},
+                            ),
+                            const SizedBox(width: 8),
+                          ],
+                        ),
+                      ])));
+                });
+          }),
+    ]));
   }
 }
 
