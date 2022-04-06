@@ -1,10 +1,12 @@
 // ignore_for_file: camel_case_types, must_be_immutable
 
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:tpfinal/functions/firebaseHelper.dart';
+import 'package:tpfinal/main.dart';
 import 'package:tpfinal/model/usersfirebase.dart';
 
 class profil extends StatefulWidget {
@@ -77,13 +79,91 @@ class myprofil extends State<profil> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
-            Text(
-              "${myProfil.lastname} ${myProfil.firstname}",
-              style: const TextStyle(fontSize: 20),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    log("Pressed - add picture");
+                  },
+                  icon: const Icon(Icons.add_a_photo),
+                  color: const Color.fromARGB(213, 71, 71, 71),
+                  iconSize: 25,
+                ),
+                IconButton(
+                  onPressed: () {
+                    log("Pressed - change picture");
+                  },
+                  icon: const Icon(Icons.add_photo_alternate),
+                  color: const Color.fromARGB(213, 71, 71, 71),
+                  iconSize: 25,
+                ),
+              ],
             ),
-            TextField()
+
+            const SizedBox(
+              height: 30,
+            ),
+            // ---------Change lastname-------------
+            TextField(
+              decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  hintText: "Modifier votre nom",
+                  labelText: "${myProfil.lastname}"),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            // ---------Change firstname-------------
+            TextField(
+              decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  hintText: "Modifier votre prenom",
+                  labelText: "${myProfil.firstname}"),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            // ------------Save data------------------
+            ElevatedButton.icon(
+              onPressed: () {
+                log("Pressed");
+              },
+              icon: const Icon(
+                Icons.save,
+                color: Colors.white,
+                size: 25,
+              ),
+              label: const Text("Sauvegarder vos modifications"),
+              style: ElevatedButton.styleFrom(
+                primary: const Color.fromARGB(186, 74, 37, 160),
+              ),
+            ),
+
+            const SizedBox(
+              height: 30,
+            ),
+
+            // ------------logout User------------------
+            InkWell(
+              onTap: () {
+                firebaseHelper().logoutFirebase().then((value) {
+                  log("Déconnexion de l'utilisateur");
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return MyHomePage(
+                      title: "",
+                    );
+                  }));
+                });
+              },
+              child: const Text(
+                "Déconnexion",
+                style: TextStyle(color: Colors.red, fontSize: 18),
+              ),
+            )
           ],
         ));
   }

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 class UsersFirebase {
   //Values
   late String uid;
-  late String firstname;
-  late String lastname;
   late String mail;
+  String? firstname;
+  String? lastname;
   String? avatar;
   List? contacts;
   List? friendRequest;

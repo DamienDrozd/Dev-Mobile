@@ -39,6 +39,11 @@ class firebaseHelper {
     return logs.user!.uid;
   }
 
+  //--------function Login ---------
+  Future<void> logoutFirebase() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   //add an user into the database
   addUser(String uid, Map<String, dynamic> map) {
     fireUser.doc(uid).set(map);
