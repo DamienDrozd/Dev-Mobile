@@ -21,7 +21,7 @@ class UsersFirebase {
     firstname = map["PRENOM"];
     mail = map["MAIL"];
     avatar = map["AVATAR"];
-    contacts = map["contacts"];
-    friendRequest = map["contacts"];
+    contacts = map["CONTACT"];
+    friendRequest = map["Demande d'ami"];
   }
 }

@@ -79,7 +79,11 @@ class myprofil extends State<profil> {
             const SizedBox(
               height: 20,
             ),
-            Text("${myProfil.lastname} ${myProfil.firstname}")
+            Text(
+              "${myProfil.lastname} ${myProfil.firstname}",
+              style: const TextStyle(fontSize: 20),
+            ),
+            TextField()
           ],
         ));
   }
