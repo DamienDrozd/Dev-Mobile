@@ -12,24 +12,29 @@ class firebaseHelper {
   //attributs
   final auth = FirebaseAuth.instance;
   final fireUser = FirebaseFirestore.instance.collection("Utilisateur");
+  final fireMessage = FirebaseFirestore.instance.collection("Message");
+  final fireChat = FirebaseFirestore.instance.collection("Conversation");
   final fireStorage = FirebaseStorage.instance;
 
   //---------------------------Methods--------------------------------
 
   //--------function Register--------
-  Future registerFirebase(
+  Future<UsersFirebase> registerFirebase(
       String lastname, String firstname, String mail, String password) async {
     UserCredential reg = await auth.createUserWithEmailAndPassword(
         email: mail, password: password);
-    User? user = reg.user;
-    String uid = user!.uid;
+    User user = reg.user!;
+    String uid = user.uid;
+    List<String> contact = [];
     Map<String, dynamic> values = {
       "NOM": lastname,
       "PRENOM": firstname,
       "MAIL": mail,
+      "CONTACTS": contact,
     };
     //add a user to the database
     addUser(uid, values);
+    return getUser(uid);
   }
 
   //--------function Login ---------
@@ -39,7 +44,7 @@ class firebaseHelper {
     return logs.user!.uid;
   }
 
-  //--------function Login ---------
+  //--------function Logout ---------
   Future<void> logoutFirebase() async {
     await FirebaseAuth.instance.signOut();
   }
@@ -56,8 +61,7 @@ class firebaseHelper {
 
   //get the user ID
   Future<String> getID() async {
-    String uid = auth.currentUser!.uid;
-    return uid;
+    return auth.currentUser!.uid;
   }
 
   //get the user
@@ -66,6 +70,16 @@ class firebaseHelper {
     return UsersFirebase(snapshot);
   }
 
+  //Store Image into firestore database
+  Future<String> storageImg(String uid, Uint8List datas) async {
+    TaskSnapshot snapshot =
+        await FirebaseStorage.instance.ref("images/$uid").putData(datas);
+    return await snapshot.ref.getDownloadURL();
+  }
+
+  //---------------------------Methods--------------------------------
+
+  //
 /*
   //function send Friend request
   sendFriendRequest(String friendId) {
