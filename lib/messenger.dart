@@ -15,8 +15,21 @@ class messenger extends StatefulWidget {
 
 // ignore: camel_case_types
 class messengerState extends State<messenger> {
-  int _selectedIndex = 0; //New
   // ignore: non_constant_identifier_names
+  int _selectedIndex = 0; //New
+  // all pages
+  final pages = [const messenger(), const contact(), const profil()];
+
+  // changePage() allows to navigate on the other page
+  void changePage(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return pages[index];
+    }));
+  }
+
   late String search;
   @override
   Widget build(BuildContext context) {
@@ -44,7 +57,7 @@ class messengerState extends State<messenger> {
           ),
         ],
         currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        onTap: changePage,
       ),
     );
   }
@@ -94,11 +107,5 @@ class messengerState extends State<messenger> {
         ),
       ],
     );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
   }
 }

@@ -1,11 +1,13 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, prefer_final_fields
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tpfinal/messenger.dart';
 import 'package:tpfinal/model/usersfirebase.dart';
 import 'package:tpfinal/functions/firebaseHelper.dart';
 import 'package:flutter/src/widgets/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tpfinal/widget/profil.dart';
 
 class contact extends StatefulWidget {
   const contact({Key? key}) : super(key: key);
@@ -17,20 +19,54 @@ class contact extends StatefulWidget {
 }
 
 class contactState extends State<contact> {
+  int _selectedIndex = 1;
+  final pages = [const messenger(), const contact(), const profil()];
+
+  // changePage() allows to navigate on the other page
+  void changePage(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return pages[index];
+    }));
+  }
+
   @override
   late List UserFirstName;
   late List UserLastName;
   String Search = "";
 
-
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Contact"),
+        body: Container(
+          padding: const EdgeInsets.all(20),
+          child: bodyPage(),
         ),
-        body:
-            bodyPage() // This trailing comma makes auto-formatting nicer for build methods.
-        );
+        bottomNavigationBar: BottomNavigationBar(
+          selectedFontSize: 15,
+          selectedIconTheme: const IconThemeData(
+              color: Color.fromARGB(255, 98, 23, 189), size: 30),
+          selectedItemColor: const Color.fromARGB(255, 98, 23, 189),
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+          type: BottomNavigationBarType.fixed,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat),
+              label: 'Messages',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.book),
+              label: 'Contacts',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profil',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          onTap: changePage,
+        ));
   }
 
   /*
@@ -46,44 +82,34 @@ class contactState extends State<contact> {
       TextField(
         onChanged: (String value) async {
           setState(() {
-              Search = value;
-              print("test");
-              Text(Search);
-
-
-
-
-
-
+            Search = value;
+            print("test");
+            Text(Search);
           });
-
         },
       ),
 
-    StreamBuilder<QuerySnapshot>(
-    //stream: firebaseHelper().fireUser.where( "NOM",isEqualTo: Search).snapshots(),
-        stream: firebaseHelper().fireUser.snapshots(),
-        builder: (context, snapshot) {
+      StreamBuilder<QuerySnapshot>(
+          //stream: firebaseHelper().fireUser.where( "NOM",isEqualTo: Search).snapshots(),
+          stream: firebaseHelper().fireUser.snapshots(),
+          builder: (context, snapshot) {
             print("test");
             List documents = snapshot.data!.docs;
             return ListView.builder(
-                itemCount: documents.length,
-                itemBuilder: (context, index) {
-                    var result = documents[index];
-                    print ("${result.firstname}  ${result.lastname}");
-                    return ListTile(
-                        title: Text("${result.firstname}  ${result.lastname}"),
-                    );
-                },
+              itemCount: documents.length,
+              itemBuilder: (context, index) {
+                var result = documents[index];
+                print("${result.firstname}  ${result.lastname}");
+                return ListTile(
+                  title: Text("${result.firstname}  ${result.lastname}"),
+                );
+              },
             );
-        }
-    ),
-
-
+          }),
 
       //---------demandes d'ami reçues-------------------
       const Text("demandes d'ami reçues"),
-        /*
+      /*
         ListView.builder(
           //List friendsadd = firebaseHelper.getFriendsRequests();
           shrinkWrap: true,
@@ -110,8 +136,6 @@ class contactState extends State<contact> {
                   ),
                 ])));
           });*/
-
-
     ]));
   }
 }

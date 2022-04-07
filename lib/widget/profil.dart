@@ -6,8 +6,10 @@ import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tpfinal/contact.dart';
 import 'package:tpfinal/functions/firebaseHelper.dart';
 import 'package:tpfinal/main.dart';
+import 'package:tpfinal/messenger.dart';
 import 'package:tpfinal/model/usersfirebase.dart';
 
 class profil extends StatefulWidget {
@@ -20,6 +22,11 @@ class profil extends StatefulWidget {
 }
 
 class myprofil extends State<profil> {
+  // ignore: unused_field
+  // index of the page
+  int _selectedIndex = 2;
+  final pages = [const messenger(), const contact(), const profil()];
+
   UsersFirebase myProfil = UsersFirebase.vide();
   Uint8List? byteFile;
   String? nameFile;
@@ -27,7 +34,7 @@ class myprofil extends State<profil> {
   TextEditingController rename_lastname = new TextEditingController();
   TextEditingController rename_firstname = new TextEditingController();
 
-  //-------------Methods-----------------
+  //---------------------------------------Methods---------------------------------------
   // getImg allows to find a img into the storage of the phone
   getImg() async {
     FilePickerResult? result = await FilePicker.platform
@@ -41,6 +48,16 @@ class myprofil extends State<profil> {
         }
       });
     }
+  }
+
+  // changePage() allows to navigate on the other page
+  void changePage(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return pages[index];
+    }));
   }
 
   // popUpImg() displays to the user if he wants to record the img
@@ -118,15 +135,34 @@ class myprofil extends State<profil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Mon Profil"),
-        centerTitle: true,
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: bodyPage(),
-      ),
-    );
+        body: Container(
+          padding: const EdgeInsets.all(20),
+          child: bodyPage(),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          selectedFontSize: 15,
+          selectedIconTheme: const IconThemeData(
+              color: Color.fromARGB(255, 98, 23, 189), size: 30),
+          selectedItemColor: const Color.fromARGB(255, 98, 23, 189),
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+          type: BottomNavigationBarType.fixed,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat),
+              label: 'Messages',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.book),
+              label: 'Contacts',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profil',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          onTap: changePage,
+        ));
   }
 
   Widget bodyPage() {
@@ -146,6 +182,9 @@ class myprofil extends State<profil> {
         alignment: Alignment.center,
         child: Column(
           children: [
+            const SizedBox(
+              height: 25,
+            ),
             InkWell(
               child: Container(
                 height: 120,
@@ -189,7 +228,7 @@ class myprofil extends State<profil> {
             ),
 
             const SizedBox(
-              height: 25,
+              height: 30,
             ),
             // ---------Change lastname-------------
             TextField(
@@ -200,7 +239,7 @@ class myprofil extends State<profil> {
               controller: rename_lastname,
             ),
             const SizedBox(
-              height: 25,
+              height: 30,
             ),
             // ---------Change firstname-------------
             TextField(
@@ -211,7 +250,7 @@ class myprofil extends State<profil> {
               controller: rename_firstname,
             ),
             const SizedBox(
-              height: 25,
+              height: 30,
             ),
             // ------------Save data------------------
             ElevatedButton.icon(
@@ -238,7 +277,7 @@ class myprofil extends State<profil> {
             ),
 
             const SizedBox(
-              height: 25,
+              height: 30,
             ),
 
             // ------------logout User------------------
