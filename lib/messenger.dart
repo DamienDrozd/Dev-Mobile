@@ -85,14 +85,14 @@ class messengerState extends State<messenger> {
                           left: 8, right: 8, top: 2, bottom: 2),
                       height: 30,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.pink[50],
+                        borderRadius: BorderRadius.circular(40),
+                        color: const Color.fromARGB(178, 81, 23, 189),
                       ),
                       child: Row(
                         children: const [
                           Icon(
                             Icons.add,
-                            color: Colors.pink,
+                            color: Colors.white,
                             size: 20,
                           ),
                         ],
@@ -122,6 +122,7 @@ class messengerState extends State<messenger> {
                 ),
               ),
             ),
+            Column()
           ],
         ),
       ),

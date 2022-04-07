@@ -38,7 +38,7 @@ class myprofil extends State<profil> {
   // getImg allows to find a img into the storage of the phone
   getImg() async {
     FilePickerResult? result = await FilePicker.platform
-        .pickFiles(withData: true, type: FileType.image);
+        .pickFiles(withData: true, type: FileType.media);
     if (result != null) {
       setState(() {
         nameFile = result.files.first.name;
