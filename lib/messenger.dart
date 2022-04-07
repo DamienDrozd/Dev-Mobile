@@ -81,30 +81,6 @@ class messengerState extends State<messenger> {
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
         ),
-        InkWell(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (BuildContext context) {
-              return const contact();
-            }));
-          },
-          child: const Text(
-            "contact",
-            style: TextStyle(color: Colors.blue),
-          ),
-        ),
-        InkWell(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (BuildContext context) {
-              return const profil();
-            }));
-          },
-          child: const Text(
-            "profil",
-            style: TextStyle(color: Colors.blue),
-          ),
-        ),
       ],
     );
   }
