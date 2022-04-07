@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:tpfinal/functions/firebaseHelper.dart';
 import 'package:tpfinal/register.dart';
 import 'package:tpfinal/messenger.dart';
@@ -43,6 +44,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late String mail;
   late String password;
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
