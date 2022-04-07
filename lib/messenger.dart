@@ -16,20 +16,16 @@ class messenger extends StatefulWidget {
 // ignore: camel_case_types
 class messengerState extends State<messenger> {
   int _selectedIndex = 0; //New
-  late String Search;
+  // ignore: non_constant_identifier_names
+  late String search;
   @override
-
-
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: bodyPage(),
-        padding: const EdgeInsets.all(20)
-      ),
+      body: Container(child: bodyPage(), padding: const EdgeInsets.all(20)),
       bottomNavigationBar: BottomNavigationBar(
-        selectedFontSize: 20,
+        selectedFontSize: 15,
         selectedIconTheme: const IconThemeData(
-            color: Color.fromARGB(255, 98, 23, 189), size: 40),
+            color: Color.fromARGB(255, 98, 23, 189), size: 30),
         selectedItemColor: const Color.fromARGB(255, 98, 23, 189),
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         type: BottomNavigationBarType.fixed,
@@ -40,15 +36,11 @@ class messengerState extends State<messenger> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
-            label: 'Contact',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.plus_one),
-            label: 'Ajouter',
+            label: 'Contacts',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'profil',
+            label: 'Profil',
           ),
         ],
         currentIndex: _selectedIndex,
@@ -64,25 +56,24 @@ class messengerState extends State<messenger> {
         TextField(
           onChanged: (value) {
             setState(() {
-              Search = value;
+              search = value;
             });
           },
           decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
-              hintText: "rechercher un contact",
+              hintText: "Nom du contact",
               hintStyle:
-              const TextStyle(color: Color.fromARGB(255, 98, 23, 189)),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20))),
+                  const TextStyle(color: Color.fromARGB(255, 98, 23, 189)),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
         ),
-
         InkWell(
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (BuildContext context) {
-                  return const contact();
-                }));
+              return const contact();
+            }));
           },
           child: const Text(
             "contact",
@@ -93,18 +84,15 @@ class messengerState extends State<messenger> {
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (BuildContext context) {
-                  return profil();
-                }));
+              return const profil();
+            }));
           },
           child: const Text(
             "profil",
             style: TextStyle(color: Colors.blue),
           ),
         ),
-
       ],
-
-
     );
   }
 
@@ -114,6 +102,3 @@ class messengerState extends State<messenger> {
     });
   }
 }
-
-
-
