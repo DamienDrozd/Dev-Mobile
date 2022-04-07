@@ -187,8 +187,8 @@ class myprofil extends State<profil> {
             ),
             InkWell(
               child: Container(
-                height: 120,
-                width: 120,
+                height: 160,
+                width: 160,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
