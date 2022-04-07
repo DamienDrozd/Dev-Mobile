@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tpfinal/functions/firebaseHelper.dart';
 import 'package:tpfinal/main.dart';
@@ -34,6 +36,40 @@ class registerState extends State<register> {
         child: bodyPage(),
       ),
     );
+  }
+
+  //show popUp when register is done
+  popUpRegister() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          if (Platform.isIOS) {
+            return CupertinoAlertDialog(
+              title: const Text(
+                  "L'inscription est réussi ! Connectez-vous, en cliquant sur connexion."),
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("OK"))
+              ],
+            );
+          } else {
+            return AlertDialog(
+              title: const Text(
+                  "L'inscription est réussi ! Connectez-vous,  en cliquant sur connexion."),
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("OK"))
+              ],
+            );
+          }
+        });
   }
 
   Widget bodyPage() {
@@ -117,6 +153,7 @@ class registerState extends State<register> {
                     borderRadius: BorderRadius.circular(20))),
             onPressed: () {
               log("Inscription réussi.");
+              popUpRegister();
               firebaseHelper()
                   .registerFirebase(lastname, firstname, mail, password);
             },
