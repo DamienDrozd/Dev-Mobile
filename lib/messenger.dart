@@ -122,78 +122,94 @@ class messengerState extends State<messenger> {
                 ),
               ),
             ),
-            Column(children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage("assets/img/icon/user.png"),
-                    maxRadius: 30,
-                  ),
-                  SizedBox(
-                    width: 16,
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "coucou",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          SizedBox(
-                            height: 6,
-                          ),
-                          Text(
-                            "coucou",
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey.shade600,
+            Column(
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage("assets/img/icon/user.png"),
+                      maxRadius: 30,
+                    ),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: Container(
+                        color: Colors.transparent,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "coucou",
+                              style: TextStyle(fontSize: 16),
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              "coucou",
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.grey.shade600,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage("assets/img/icon/user.png"),
-                    maxRadius: 30,
-                  ),
-                  SizedBox(
-                    width: 16,
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "coucou",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          SizedBox(
-                            height: 6,
-                          ),
-                          Text(
-                            "coucou",
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey.shade600,
+                  ],
+                ),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage("assets/img/icon/user.png"),
+                      maxRadius: 30,
+                    ),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: Container(
+                        color: Colors.transparent,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "coucou",
+                              style: TextStyle(fontSize: 16),
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              "coucou",
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.grey.shade600,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
+                  ],
+                ),
+                Row(children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return const chat();
+                      }));
+                    },
+                    child: const Text(
+                      "details message",
+                      style: TextStyle(color: Colors.blue),
+                    ),
                   ),
-                ],
-              ),
-            ]),
+                ]),
+              ],
+            ),
           ],
         ),
       ),
