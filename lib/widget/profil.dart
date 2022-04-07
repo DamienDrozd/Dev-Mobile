@@ -217,11 +217,14 @@ class myprofil extends State<profil> {
             ElevatedButton.icon(
               onPressed: () {
                 log("Pressed");
-                Map<String, dynamic> map = {
-                  "NOM": rename_lastname.text,
-                  "PRENOM": rename_firstname
+                myProfil.firstname = rename_firstname.text;
+                myProfil.lastname = rename_lastname.text;
+                Map<String, dynamic> changemap = {
+                  "NOM": myProfil.lastname,
+                  "PRENOM": myProfil.firstname
                 };
-                firebaseHelper().updateUser(myProfil.uid, map);
+
+                firebaseHelper().updateUser(myProfil.uid, changemap);
               },
               icon: const Icon(
                 Icons.save,
