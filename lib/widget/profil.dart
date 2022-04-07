@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, must_be_immutable
+// ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names
 
 import 'dart:developer';
 import 'dart:io';
@@ -24,6 +24,8 @@ class myprofil extends State<profil> {
   Uint8List? byteFile;
   String? nameFile;
   String? urlFile;
+  TextEditingController rename_lastname = new TextEditingController();
+  TextEditingController rename_firstname = new TextEditingController();
 
   //-------------Methods-----------------
   // getImg allows to find a img into the storage of the phone
@@ -159,7 +161,7 @@ class myprofil extends State<profil> {
               ),
             ),
             const SizedBox(
-              height: 30,
+              height: 25,
             ),
 
             Row(
@@ -187,7 +189,7 @@ class myprofil extends State<profil> {
             ),
 
             const SizedBox(
-              height: 30,
+              height: 25,
             ),
             // ---------Change lastname-------------
             TextField(
@@ -195,9 +197,10 @@ class myprofil extends State<profil> {
                   border: const OutlineInputBorder(),
                   hintText: "Modifier votre nom",
                   labelText: "${myProfil.lastname}"),
+              controller: rename_lastname,
             ),
             const SizedBox(
-              height: 30,
+              height: 25,
             ),
             // ---------Change firstname-------------
             TextField(
@@ -205,14 +208,20 @@ class myprofil extends State<profil> {
                   border: const OutlineInputBorder(),
                   hintText: "Modifier votre prenom",
                   labelText: "${myProfil.firstname}"),
+              controller: rename_firstname,
             ),
             const SizedBox(
-              height: 30,
+              height: 25,
             ),
             // ------------Save data------------------
             ElevatedButton.icon(
               onPressed: () {
                 log("Pressed");
+                Map<String, dynamic> map = {
+                  "NOM": rename_lastname.text,
+                  "PRENOM": rename_firstname
+                };
+                firebaseHelper().updateUser(myProfil.uid, map);
               },
               icon: const Icon(
                 Icons.save,
@@ -226,7 +235,7 @@ class myprofil extends State<profil> {
             ),
 
             const SizedBox(
-              height: 30,
+              height: 25,
             ),
 
             // ------------logout User------------------

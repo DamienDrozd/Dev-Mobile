@@ -26,11 +26,13 @@ class firebaseHelper {
     User user = reg.user!;
     String uid = user.uid;
     List<String> contact = [];
+    List<String> friendrequest = [];
     Map<String, dynamic> values = {
       "NOM": lastname,
       "PRENOM": firstname,
       "MAIL": mail,
       "CONTACTS": contact,
+      "DEMANDE AMI": friendrequest,
     };
     //add a user to the database
     addUser(uid, values);
