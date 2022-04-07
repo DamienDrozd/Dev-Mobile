@@ -79,7 +79,39 @@ class firebaseHelper {
     return await snapshot.ref.getDownloadURL();
   }
 
-  //---------------------------Methods--------------------------------
+  //---------------------------Message/Conversation--------------------------------
+  sendMsg(String content, UsersFirebase user, UsersFirebase otherUser) {
+    DateTime date = DateTime.now();
+    Map<String, dynamic> mapMsg = {
+      'De': user.uid,
+      'Destinataire': otherUser.uid,
+      'Texte': content,
+      'Date': date,
+    };
+  }
+
+  // getChat(){
+  //   DateTime date = DateTime.now();
+  //   Map<String, dynamic> mapChat = {
+  //     'Date':date,
+  //     'Dernier Msg':,
+  //     'ID Destinataire':,
+  //     'ID Destinateur':,
+  //     'NOM':,
+  //     'PRENOM',
+  //     'UID',
+  //   }
+  // }
+
+  // addMsg() allows to add msg into the 'Message' database collection into firebase
+  addMsg(Map<String, dynamic> map, String uid) {
+    fireMessage.doc(uid).set(map);
+  }
+
+  // addChat() allows to add chats into the 'Conversation' database collection into firebase
+  addChat(Map<String, dynamic> map, String uid) {
+    fireChat.doc(uid).set(map);
+  }
 
   //
 /*
