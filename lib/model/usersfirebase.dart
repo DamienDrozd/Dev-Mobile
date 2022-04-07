@@ -5,11 +5,11 @@ class UsersFirebase {
   //Values
   late String uid;
   late String mail;
-  late String firstname;
-  late String lastname;
+  String? firstname;
+  String? lastname;
   String? avatar;
-  List contacts = [];
-  List friendRequest = [];
+  List? contacts = [];
+  List? friendRequest = [];
 
   //Constructor
   UsersFirebase.vide();

@@ -1,16 +1,17 @@
 // ignore_for_file: camel_case_types, must_be_immutable
 
 import 'dart:developer';
+import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tpfinal/functions/firebaseHelper.dart';
 import 'package:tpfinal/main.dart';
 import 'package:tpfinal/model/usersfirebase.dart';
 
 class profil extends StatefulWidget {
-  profil({Key? key}) : super(key: key);
+  const profil({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -25,13 +26,91 @@ class myprofil extends State<profil> {
   String? urlFile;
 
   //-------------Methods-----------------
+  // getImg allows to find a img into the storage of the phone
   getImg() async {
     FilePickerResult? result = await FilePicker.platform
         .pickFiles(withData: true, type: FileType.image);
     if (result != null) {
-      nameFile = result.files.first.name;
-      byteFile = result.files.first.bytes;
+      setState(() {
+        nameFile = result.files.first.name;
+        byteFile = result.files.first.bytes;
+        if (byteFile != null) {
+          popUpImg();
+        }
+      });
     }
+  }
+
+  // popUpImg() displays to the user if he wants to record the img
+  popUpImg() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          if (Platform.isIOS) {
+            return CupertinoAlertDialog(
+              title: const Text("Souhaitez-vous enregistrer cette image ?"),
+              content: Image.memory(byteFile!),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Annuler"),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      firebaseHelper()
+                          .storageImg(nameFile!, byteFile!)
+                          .then((value) {
+                        setState(() {
+                          urlFile = value;
+                          Map<String, dynamic> map = {
+                            "AVATAR": urlFile,
+                          };
+                          myProfil.avatar = urlFile;
+                          firebaseHelper().updateUser(myProfil.uid, map);
+                          Navigator.pop(context);
+                        });
+                      });
+                    },
+                    child: const Text("Valider")),
+              ],
+            );
+          } else {
+            return AlertDialog(
+              title: const Text("Voulez-vous enrgistrer cette image ?"),
+              content: Image.memory(byteFile!),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    //Annuler
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Annuler"),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      //enregsiter notre image dans la base de donnée
+                      firebaseHelper()
+                          .storageImg(nameFile!, byteFile!)
+                          .then((String urlImage) {
+                        setState(() {
+                          urlFile = urlImage;
+                          Map<String, dynamic> map = {
+                            "AVATAR": urlFile,
+                          };
+                          firebaseHelper().updateUser(myProfil.uid, map);
+                        });
+                      });
+
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Valider"))
+              ],
+            );
+          }
+        });
   }
 
   @override
@@ -73,9 +152,10 @@ class myprofil extends State<profil> {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: (myProfil.avatar == null)
-                            ? const AssetImage("assets/img/icon/user.png")
-                            : AssetImage(myProfil.avatar!))),
+                        image: (myProfil.avatar != null)
+                            ? NetworkImage(myProfil.avatar!)
+                            : const NetworkImage(
+                                "https://firebasestorage.googleapis.com/v0/b/cours-1---dev-mobile.appspot.com/o/image%2Fuser.png?alt=media&token=fb5511e3-0aad-4cc3-9c15-cfd3c054cf52"))),
               ),
             ),
             const SizedBox(
@@ -88,6 +168,7 @@ class myprofil extends State<profil> {
                 IconButton(
                   onPressed: () {
                     log("Pressed - add picture");
+                    getImg();
                   },
                   icon: const Icon(Icons.add_a_photo),
                   color: const Color.fromARGB(213, 71, 71, 71),
@@ -96,6 +177,7 @@ class myprofil extends State<profil> {
                 IconButton(
                   onPressed: () {
                     log("Pressed - change picture");
+                    getImg();
                   },
                   icon: const Icon(Icons.add_photo_alternate),
                   color: const Color.fromARGB(213, 71, 71, 71),
@@ -153,7 +235,7 @@ class myprofil extends State<profil> {
                 firebaseHelper().logoutFirebase().then((value) {
                   log("Déconnexion de l'utilisateur");
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return MyHomePage(
+                    return const MyHomePage(
                       title: "",
                     );
                   }));
