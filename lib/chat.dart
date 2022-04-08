@@ -1,7 +1,11 @@
 // ignore_for_file: camel_case_types
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tpfinal/functions/firebaseHelper.dart';
+import 'package:tpfinal/model/usersfirebase.dart';
 
 class chat extends StatefulWidget {
   const chat({Key? key}) : super(key: key);
@@ -13,6 +17,10 @@ class chat extends StatefulWidget {
 }
 
 class chatState extends State<chat> {
+  late String msgtext;
+  UsersFirebase user = UsersFirebase.vide();
+  UsersFirebase friends = UsersFirebase.vide();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,8 +79,27 @@ class chatState extends State<chat> {
   }
 
   Widget bodyPage() {
+    firebaseHelper().getID().then((String id) {
+      setState(() {
+        String userID = id;
+        firebaseHelper().getUser(userID).then((UsersFirebase usr) {
+          setState(() {
+            user = usr;
+          });
+        });
+      });
+    });
+    String otheruserID = "xHoEOiQPv9aLGbC5eoVBlMT8vX42";
+    firebaseHelper().getUser(otheruserID).then((UsersFirebase oth) {
+      setState(() {
+        friends = oth;
+      });
+    });
     return Stack(
       children: [
+        Container(
+          child: Text("coucou"),
+        ),
         Align(
           alignment: Alignment.bottomLeft,
           child: Container(
@@ -81,29 +108,18 @@ class chatState extends State<chat> {
             width: double.infinity,
             color: Colors.white,
             child: Row(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      color: Colors.lightBlue,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  ),
-                ),
+              children: [
                 const SizedBox(
                   width: 15,
                 ),
-                const Expanded(
+                Expanded(
                   child: TextField(
-                    decoration: InputDecoration(
+                    onChanged: (value) {
+                      setState(() {
+                        msgtext = value;
+                      });
+                    },
+                    decoration: const InputDecoration(
                         hintText: "Ecrire un message...",
                         hintStyle: TextStyle(color: Colors.black54),
                         border: InputBorder.none),
@@ -113,7 +129,10 @@ class chatState extends State<chat> {
                   width: 15,
                 ),
                 FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    log("Création du message");
+                    firebaseHelper().sendMsg(msgtext, user, friends);
+                  },
                   child: const Icon(
                     Icons.send,
                     color: Colors.white,

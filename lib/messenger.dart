@@ -123,14 +123,16 @@ class messengerState extends State<messenger> {
               ),
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       backgroundImage: AssetImage("assets/img/icon/user.png"),
                       maxRadius: 30,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 16,
                     ),
                     Expanded(
@@ -139,11 +141,11 @@ class messengerState extends State<messenger> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "coucou",
                               style: TextStyle(fontSize: 16),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 6,
                             ),
                             Text(
@@ -157,15 +159,17 @@ class messengerState extends State<messenger> {
                         ),
                       ),
                     ),
+                    const Text("12:00"),
                   ],
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       backgroundImage: AssetImage("assets/img/icon/user.png"),
                       maxRadius: 30,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 16,
                     ),
                     Expanded(
@@ -174,11 +178,11 @@ class messengerState extends State<messenger> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "coucou",
                               style: TextStyle(fontSize: 16),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 6,
                             ),
                             Text(
@@ -192,6 +196,7 @@ class messengerState extends State<messenger> {
                         ),
                       ),
                     ),
+                    const Text("12:00"),
                   ],
                 ),
                 Row(children: [

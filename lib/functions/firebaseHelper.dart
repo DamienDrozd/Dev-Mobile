@@ -81,27 +81,42 @@ class firebaseHelper {
 
   //---------------------------Message/Conversation--------------------------------
   sendMsg(String content, UsersFirebase user, UsersFirebase otherUser) {
-    DateTime date = DateTime.now();
+    DateTime datetime = DateTime.now();
     Map<String, dynamic> mapMsg = {
       'De': user.uid,
       'Destinataire': otherUser.uid,
       'Texte': content,
-      'Date': date,
+      'Date': datetime,
     };
+    String date = datetime.toString();
+
+    addMsg(mapMsg, createMsgRef(otherUser.uid, user.uid, date));
+    addChat(createConv(user.uid, otherUser, datetime, content), user.uid);
+    addChat(createConv(otherUser.uid, user, datetime, content), otherUser.uid);
+
+    // return mapMsg;
   }
 
-  // getChat(){
-  //   DateTime date = DateTime.now();
-  //   Map<String, dynamic> mapChat = {
-  //     'Date':date,
-  //     'Dernier Msg':,
-  //     'ID Destinataire':,
-  //     'ID Destinateur':,
-  //     'NOM':,
-  //     'PRENOM',
-  //     'UID',
-  //   }
-  // }
+  //createMsgRef() allows to create the id of the message
+  createMsgRef(String otheruser, String user, String date) {
+    String idMsg = user + "+" + otheruser + "  ";
+    return idMsg + date;
+  }
+
+  createConv(
+      String userID, UsersFirebase otherUser, DateTime date, String content) {
+    Map<String, dynamic> mapChat = {
+      'Date': date,
+      'Dernier Msg': content,
+      'ID Destinataire': otherUser.uid,
+      'ID Destinateur': userID,
+      'NOM': otherUser.lastname,
+      'PRENOM': otherUser.firstname,
+      'UID': otherUser.uid,
+    };
+
+    return mapChat;
+  }
 
   // addMsg() allows to add msg into the 'Message' database collection into firebase
   addMsg(Map<String, dynamic> map, String uid) {

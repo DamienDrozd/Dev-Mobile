@@ -7,6 +7,9 @@ class Message {
   String content = "";
   DateTime dateMessage = DateTime.now();
 
+  // constructor
+  Message.vide();
+
   Message(DocumentSnapshot snapshot) {
     id = snapshot.id;
     Map<String, dynamic> mapMessage = snapshot.data() as Map<String, dynamic>;
